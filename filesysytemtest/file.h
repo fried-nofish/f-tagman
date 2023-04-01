@@ -37,6 +37,5 @@ void menu();
 bool getout();
 bool function_01(address filepath);
 void function_02(std::map < tag, std::vector<file> >& FILE);
-void function_08();
 
 

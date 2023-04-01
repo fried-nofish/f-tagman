@@ -3,8 +3,8 @@
 
 file file::operator=(const file& f)
 {
-	file newfile();
-	newfile().id = f.id;
-	newfile().name = f.name;
-	return newfile();
+	file newfile("0","0");
+	newfile.id = f.id;
+	newfile.name = f.name;
+	return newfile;
 }
