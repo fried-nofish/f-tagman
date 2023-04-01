@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <cstdlib>
+#include <filesystem>
 
 using address = std::string;
 
@@ -14,13 +15,25 @@ private:
 public:
     file() = default;
 
-    file(std::string id, std::string name) {
+    file(std::string name, std::string id) {
         this->name = name;
         this->id   = id;
     }
 
     std::string getname(){
         return name;
+    }
+
+    std::string getip(){
+        return id;
+    }
+
+    void changename(std::string name){
+        this->name=name;
+    }
+
+    void changeip(std::string id){
+        this->id=id;
     }
 
     file operator=(const file& f);
@@ -39,4 +52,6 @@ void menu();
 bool getout();
 bool function_01(address filepath);
 void function_02(std::map<tag, std::vector<file>>& FILE);
-void function_08(const std::map < tag, std::vector<file> > FILE);
+void function_08(std::map < tag, std::vector<file> > &FILE);
+void function_05(std::map < tag, std::vector<file> >& FILE);
+void function_06(std::map < tag, std::vector<file> >& FILE);

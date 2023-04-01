@@ -29,7 +29,7 @@ void printtag(std::map < tag, std::vector<file> >& FILE)
 void function_05(std::map < tag, std::vector<file> >& FILE)
 {
 	printtag(FILE);
-	getout();
+	if(getout())return;
 	//用户输入需要删除的标签名称
 	cout << "******请输入需要移除的标签名称:";
 	string name;
@@ -82,7 +82,7 @@ void function_06(std::map < tag, std::vector<file> >& FILE)
 {
 	printtag(FILE);
 	std::vector<file> before_file;
-	getout();
+	if(getout())return;
 
 	//用户输入需要修改的标签名称
 	cout << "******请输入需要修改的标签名称：";

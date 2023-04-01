@@ -26,8 +26,10 @@ int main(int argc, char *argv[]) {
             case 4:
                 break;
             case 5:
+                function_05(FILE);
                 break;
             case 6:
+                function_06(FILE);
                 break;
             case 7:
                 break;

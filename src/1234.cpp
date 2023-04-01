@@ -1,6 +1,5 @@
 #include "file.h"
 
-#include <filesystem>
 
 using std::cin;
 using std::cout;
