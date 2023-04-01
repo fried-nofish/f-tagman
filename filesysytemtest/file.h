@@ -34,4 +34,4 @@ struct tag
 bool read(address filepath);
 void menu();
 void function_01(std::map < tag, std::vector<file> >& FILE);
-void function_08(string a, string b);
+void function_08();
