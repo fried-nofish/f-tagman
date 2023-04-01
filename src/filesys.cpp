@@ -20,7 +20,7 @@ void menu() {
 
 bool getout() {
     int select;
-    cout << "如需结束程序请输入 1 ，否则输入任意数字";
+    cout << "如需结束程序请输入 1 ，否则输入任意数字： ";
     cin >> select;
     return select == 1;
 }
