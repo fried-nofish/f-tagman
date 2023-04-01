@@ -27,7 +27,7 @@ bool function_01(address filepath) {
 
 void function_02(std::map<tag, std::vector<file>>& FILE) {
     address fileaddress;
-    cout << "请输入文件路径: ";
+    cout << "请输入文件父目录: ";
     cin >> fileaddress;
     function_01(fileaddress);
     while (1) {
@@ -83,4 +83,9 @@ void function_02(std::map<tag, std::vector<file>>& FILE) {
             }
         }
     }
+}
+
+void function_03()
+{
+    
 }
