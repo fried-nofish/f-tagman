@@ -34,15 +34,9 @@ struct tag
 
 //其他功能函数
 void menu();
-<<<<<<< HEAD
 bool getout();
 bool function_01(address filepath);
 void function_02(std::map < tag, std::vector<file> >& FILE);
-=======
-
-void function_01(std::map < tag, std::vector<file> >& FILE);
-void function_02(std::map < tag, std::vector<file> >& FILE);
-bool getout();
 void function_08();
 
->>>>>>> 1272317dcc92fa3ff20c5423518860a473cb8ce8
+
