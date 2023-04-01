@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
         cin >> select;
         switch (select) {
             case 1:
-                cout << "输入要管理的目录名: ";
+                cout << "输入要管理的目录名: "<<std::endl;
                 cin >> filepath;
                 function_01(filepath);
                 break;
@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
             case 7:
                 break;
             case 8:
+                function_08(FILE);
                 break;
             default:
                 cout << "你故意找茬是吧？";
