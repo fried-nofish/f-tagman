@@ -27,7 +27,11 @@
     <ClCompile Include="1234.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="filefunction.cpp">
+=======
+    <ClCompile Include="8.cpp">
+>>>>>>> 1272317dcc92fa3ff20c5423518860a473cb8ce8
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
