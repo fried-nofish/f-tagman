@@ -48,41 +48,39 @@ void function_02(std::map<tag, std::vector<file>>& FILE) {
             document.push_back(newfile);
             FILE.insert(make_pair(tip, document));
             cout << "添加成功" << endl;
-        } else // 如果标签已存在，由用户选择使用其他标签名还是给标签添加说明
+        }
+        else // 如果标签已存在，由用户选择使用其他标签名还是给标签添加说明
         {
             cout << "已存在 " << tip.name << " 标签" << endl;
             cout << "如需要使用其他标签请输入1，如需要给该标签添加说明请输入2，"
-                    "如直接添加该标签请输入3"
-                 << endl;
+                "如直接添加该标签请输入3"
+                << endl;
             tag old_tip;
-            old_tip.name =
-                tip.name; // 如果用户需要修改标签说明，删除旧标签，将原value存至此标签对应处
-            std::vector<file>*
-                tempfile; // 如果用户需要修改标签说明，临时储存value值
-            std::vector<file>
-                document; // 如果用户需要修改标签说明，创建新的vector<file>储存新文件
+            old_tip.name = tip.name; // 如果用户需要修改标签说明，删除旧标签，将原value存至此标签对应处
+            std::vector<file>* tempfile; // 如果用户需要修改标签说明，临时储存value值
+            std::vector<file>document; // 如果用户需要修改标签说明，创建新的vector<file>储存新文件
             int select;
             cin >> select;
             switch (select) {
-                case 1:
-                    continue;
-                case 2:
-                    tempfile = &FILE[tip];
-                    FILE.erase(FILE.find(tip));
-                    cout << "请输入对原标签的说明" << endl;
-                    cin >> old_tip.explain;
-                    cout << "请输入对新标签的说明" << endl;
-                    cin >> tip.explain;
-                    document.push_back(newfile);
-                    FILE.insert(make_pair(old_tip, *tempfile));
-                    FILE.insert(make_pair(tip, document));
-                    continue;
-                case 3:
-                    FILE[tip].push_back(newfile);
-                    continue;
-                default:
-                    cout << "没有这个选项！！！" << endl;
-                    continue;
+            case 1:
+                continue;
+            case 2:
+                tempfile = &FILE[tip];
+                FILE.erase(FILE.find(tip));
+                cout << "请输入对原标签的说明" << endl;
+                cin >> old_tip.explain;
+                cout << "请输入对新标签的说明" << endl;
+                cin >> tip.explain;
+                document.push_back(newfile);
+                FILE.insert(make_pair(old_tip, *tempfile));
+                FILE.insert(make_pair(tip, document));
+                continue;
+            case 3:
+                FILE[tip].push_back(newfile);
+                continue;
+            default:
+                cout << "没有这个选项！！！" << endl;
+                continue;
             }
         }
     }

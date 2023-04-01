@@ -6,10 +6,15 @@ void function_08(const std::map < tag, std::vector<file> > FILE) {
 	string old_name;
 	string new_name;
 	string labal;
+	string shuoming;
 	tag tip;
 	std::cout << "请输入你需要查找的标签" << std::endl;
 	std::cin >> labal;
+	std::cout<<"请输入你需要查找的标签的简介"<<std::endl;
+	std::cin>>shuoming;
     tip.name = labal;
+	tip.explain=shuoming;
+
 	if (FILE.find(tip) != FILE.end()) {
 		auto it = FILE.find(tip);
 		std::vector<file>result = it->second;
