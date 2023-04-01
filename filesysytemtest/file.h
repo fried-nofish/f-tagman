@@ -1,0 +1,48 @@
+#pragma once
+#include<iostream>
+#include<filesystem>
+#include<map>
+#include<vector>
+#include<cstdlib>
+
+using std::string;
+namespace fs = std::filesystem;
+typedef string address;
+
+class file
+{
+private:
+	string id;//碌脴脰路
+	string name;//脦脛录镁脙没
+public:
+	file(string id,string name)
+	{
+		this->name = name;
+		this->id = id;
+	}
+	file operator=(const file& f);
+};
+
+struct tag
+{
+	string name;
+	string explain = "0";
+	bool operator<(const tag& a)const {   
+		return name == a.name ? explain < a.explain : name < a.name ;
+	}
+};
+
+//其他功能函数
+void menu();
+<<<<<<< HEAD
+bool getout();
+bool function_01(address filepath);
+void function_02(std::map < tag, std::vector<file> >& FILE);
+=======
+
+void function_01(std::map < tag, std::vector<file> >& FILE);
+void function_02(std::map < tag, std::vector<file> >& FILE);
+bool getout();
+void function_08();
+
+>>>>>>> 1272317dcc92fa3ff20c5423518860a473cb8ce8
