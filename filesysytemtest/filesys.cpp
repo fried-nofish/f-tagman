@@ -5,7 +5,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-bool read(address filepath)
+bool function_01(address filepath)
 {
 	fs::path str(filepath);
 	if (!fs::exists(str))		//必须先检测目录是否存在才能使用文件入口.

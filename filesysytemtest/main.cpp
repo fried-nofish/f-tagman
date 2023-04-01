@@ -19,7 +19,7 @@ int main()
 		case 1:
 			cout << "输入要管理的目录名: ";
 			cin >> filepath;
-			read(filepath);
+			function_01(filepath);
 			break;
 		case 2:
 			function_02(FILE);

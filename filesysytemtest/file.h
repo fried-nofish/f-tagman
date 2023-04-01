@@ -19,6 +19,7 @@ public:
 		this->name = name;
 		this->id = id;
 	}
+	file operator=(const file& f);
 };
 
 struct tag
@@ -30,7 +31,8 @@ struct tag
 	}
 };
 
-bool read(address filepath);
+//其他功能函数
 void menu();
+bool getout();
+bool function_01(address filepath);
 void function_02(std::map < tag, std::vector<file> >& FILE);
-bool getout()

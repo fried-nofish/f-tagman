@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="1234.cpp" />
     <ClCompile Include="file.h" />
+    <ClCompile Include="filefunction.cpp" />
     <ClCompile Include="filesys.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

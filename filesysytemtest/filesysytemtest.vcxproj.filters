@@ -27,5 +27,8 @@
     <ClCompile Include="1234.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="filefunction.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
