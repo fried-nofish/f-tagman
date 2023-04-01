@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
     //! TODO: handle application startup here
 
     std::map<tag, std::vector<file>> FILE;
-    address                          filepath;
+    address filepath;
     while (1) {
         menu();
         int select;

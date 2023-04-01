@@ -3,9 +3,10 @@
 #include <map>
 #include <vector>
 #include <cstdlib>
+typedef int tagbool;
 
 using address = std::string;
-
+struct tag;
 class file {
 private:
     std::string id;
@@ -24,6 +25,7 @@ public:
     }
 
     file operator=(const file& f);
+    std::map<tag,tagbool> tagtype;
 };
 
 struct tag {

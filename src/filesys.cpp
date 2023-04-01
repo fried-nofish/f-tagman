@@ -1,4 +1,3 @@
-#pragma once
 #include "file.h"
 
 using std::cin;
@@ -15,12 +14,13 @@ void menu() {
     cout << "********** 6.更改标签名称 **********" << endl;
     cout << "********** 7.查询标签下所有文件 **********" << endl;
     cout << "********** 8.修改指定文件的文件名 **********" << endl;
+    cout << "********** 9.显示一个文件的所有标签 **********" << endl;
     cout << "********** 请输入你需要使用的功能：**********" << endl;
 }
 
 bool getout() {
     int select;
-    cout << "如需结束程序请输入 1 ，否则输入任意数字";
+    cout << "如需结束程序请输入 1 ，否则输入任意数字： ";
     cin >> select;
     return select == 1;
 }
