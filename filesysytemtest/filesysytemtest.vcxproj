@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="1234.cpp" />
+    <ClCompile Include="8.cpp" />
     <ClCompile Include="file.h" />
     <ClCompile Include="filesys.cpp" />
     <ClCompile Include="main.cpp" />

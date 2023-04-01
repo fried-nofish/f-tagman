@@ -3,6 +3,7 @@
 #include<filesystem>
 #include<map>
 #include<vector>
+#include<cstdlib>
 
 using std::string;
 namespace fs = std::filesystem;
@@ -33,3 +34,4 @@ struct tag
 bool read(address filepath);
 void menu();
 void function_01(std::map < tag, std::vector<file> >& FILE);
+void function_08(string a, string b);
