@@ -36,3 +36,4 @@
 /BUILD_*/
 /release/
 /debug/
+/.cache/
