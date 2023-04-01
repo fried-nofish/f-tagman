@@ -34,3 +34,10 @@ void menu()
 	cout << "********** 请输入你需要使用的功能：**********" << endl;
 }
 
+bool getout()
+{
+	int select;
+	cout << "如需结束程序请输入 1 ，否则输入任意数字";
+	cin >> select;
+	return select == 1;
+}
