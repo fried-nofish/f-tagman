@@ -19,6 +19,10 @@ public:
         this->id   = id;
     }
 
+    std::string getname(){
+        return name;
+    }
+
     file operator=(const file& f);
 };
 
@@ -35,4 +39,4 @@ void menu();
 bool getout();
 bool function_01(address filepath);
 void function_02(std::map<tag, std::vector<file>>& FILE);
-void function_08();
+void function_08(const std::map < tag, std::vector<file> > FILE);
