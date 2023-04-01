@@ -49,7 +49,7 @@ std::vector<tag_t *>
  * \return 标注有目标标签的资源列表
  */
 std::vector<std::string_view>
-    getResoucesFromTag(const tagnet_t &net, const tag_t *tagInst);
+    getResourcesFromTag(const tagnet_t &net, const tag_t *tagInst);
 
 /*!
  * \brief 获取资源的标签列表
@@ -58,7 +58,7 @@ std::vector<std::string_view>
  * \return 目标资源的标签列表
  */
 std::vector<const tag_t *>
-    getResoucesTags(const tagnet_t &net, std::string_view url);
+    getResourceTags(const tagnet_t &net, std::string_view url);
 
 /*!
  * \brief 为资源标注标签
@@ -94,6 +94,6 @@ bool tagResource(
  */
 bool untagResource(tagnet_t &net, std::string_view url, const tag_t *tagInst);
 
-}; // namespace v1
+} // namespace v1
 
 } // namespace api

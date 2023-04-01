@@ -1,7 +1,7 @@
 #include "api.h"
 
 #include <assert.h>
-#include <stdlib.h>
+#include <iostream>
 #include <memory>
 #include <utility>
 #include <functional>
@@ -33,13 +33,15 @@ std::vector<tag_t *>
     std::vector<tag_t *> resp{};
 
     auto it = std::back_inserter(resp);
-    for (auto &[key, value] : net) { *it++ = key; }
+    for (auto &[key, value] : net) {
+        if (key->name == tagName) { *it++ = key; }
+    }
 
     return resp;
 }
 
 std::vector<std::string_view>
-    getResoucesFromTag(const tagnet_t &net, const tag_t *tagInst) {
+    getResourcesFromTag(const tagnet_t &net, const tag_t *tagInst) {
     using value_type = tagnet_t::value_type;
 
     std::vector<std::string_view> resp{};
@@ -59,7 +61,7 @@ std::vector<std::string_view>
 }
 
 std::vector<const tag_t *>
-    getResoucesTags(const tagnet_t &net, std::string_view url) {
+    getResourceTags(const tagnet_t &net, std::string_view url) {
     std::vector<const tag_t *> resp{};
 
     auto it = std::back_inserter(resp);
@@ -74,6 +76,7 @@ std::vector<const tag_t *>
 
 bool tagResource(tagnet_t &net, std::string_view url, const tag_t *tagInst) {
     assert(tagInst != nullptr);
+    assert(!url.empty());
 
     auto tag = const_cast<tag_t *>(tagInst);
 
@@ -100,6 +103,11 @@ bool tagResource(
 
     auto tagInst = std::unique_ptr<tag_t>(new tag_t{std::string{tagName}, ""});
 
+    std::map<tag_t *, tag_t> siteMaintance; //!< 维护现场
+
+    const auto oldTagList = getTagsFromName(net, tagName);
+    for (const auto &e : oldTagList) { siteMaintance.insert_or_assign(e, *e); }
+
     const auto result = tagResource(net, url, tagInst.get());
 
     if (!exists(net, tagName)) {
@@ -119,6 +127,8 @@ bool tagResource(
 
     auto ok = true;
 
+    //! NOTE: 对该规则的违反难以恢复现场，但当 handler 服从 const
+    //! 限定符时，该规则基本不会被违反
     for (auto &tagInst : tagList) { ok &= net.count(tagInst) == 1; }
 
     for (const auto &e : tagList) { ok &= e->name == tagName; }
@@ -132,7 +142,15 @@ bool tagResource(
         return result;
     }
 
-    perror("bad tag conflicts handler");
+    std::cerr << "bad tag conflicts handler" << std::endl;
+
+    //! 恢复现场
+    net.erase(tagInst.get());
+    for (auto &[key, value] : siteMaintance) {
+        key->name  = std::move(value.name);
+        key->brief = std::move(value.brief);
+    }
+
     return false;
 }
 
@@ -142,7 +160,7 @@ bool untagResource(tagnet_t &net, std::string_view url, const tag_t *tagInst) {
 
     assert(net.count(tag) <= 1);
     if (net.count(tag) == 0) {
-        perror("specific tag does not exist");
+        std::cerr << "specific tag does not exist" << std::endl;
         return false;
     }
 
@@ -150,7 +168,8 @@ bool untagResource(tagnet_t &net, std::string_view url, const tag_t *tagInst) {
     const auto key     = std::string{url};
 
     if (resList.count(key) == 0) {
-        perror("target resource does not contain the specific tag");
+        std::cerr << "target resource does not contain the specific tag"
+                  << std::endl;
         return false;
     }
 
