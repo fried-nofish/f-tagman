@@ -3,6 +3,7 @@
 #include<filesystem>
 #include<map>
 #include<vector>
+#include<cstdlib>
 
 using std::string;
 namespace fs = std::filesystem;
@@ -11,8 +12,8 @@ typedef string address;
 class file
 {
 private:
-	string id;//地址
-	string name;//文件名
+	string id;//碌脴脰路
+	string name;//脦脛录镁脙没
 public:
 	file(string id,string name)
 	{
@@ -32,5 +33,9 @@ struct tag
 
 bool read(address filepath);
 void menu();
+
+void function_01(std::map < tag, std::vector<file> >& FILE);
 void function_02(std::map < tag, std::vector<file> >& FILE);
-bool getout()
+bool getout();
+void function_08();
+
