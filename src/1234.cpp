@@ -1,9 +1,12 @@
-#pragma once
 #include "file.h"
+
+#include <filesystem>
 
 using std::cin;
 using std::cout;
 using std::endl;
+
+namespace fs = std::filesystem;
 
 bool function_01(address filepath) {
     fs::path str(filepath);
@@ -29,8 +32,8 @@ void function_02(std::map<tag, std::vector<file>>& FILE) {
     function_01(fileaddress);
     while (1) {
         if (getout()) break;
-        string            tipname;
-        string            filename;
+        std::string       tipname;
+        std::string       filename;
         tag               tip;
         std::vector<file> document;
         cout << "分别输入文件名和标签名，用空格隔开" << endl;
