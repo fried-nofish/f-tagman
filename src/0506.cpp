@@ -5,8 +5,6 @@ using std::cin;
 using std::endl;
 using std::string;
 
-using std::string;
-
 //打印现有所有标签
 void printtag(std::map < tag, std::vector<file> >& FILE)
 {
