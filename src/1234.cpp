@@ -1,11 +1,13 @@
 #include "file.h"
 
 #include <filesystem>
+#include <utility>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
+using std::make_pair;
 
 namespace fs = std::filesystem;
 
@@ -33,22 +35,24 @@ void function_02(std::map<tag, std::vector<file>>& FILE) {
     function_01(fileaddress);
     while (1) {
         if (getout()) break;
-        string tipname;
-        string filename;
+        string tipname;  //用户的标签名
+        string filename;  //用户的文件名
         tag    tip;
         cout << "分别输入文件名和标签名，用空格隔开" << endl;
         cin >> filename;
         cin >> tipname;
         tip.name = tipname;
         file newfile(filename, fileaddress + "//" + filename);
-        if (FILE.find(tip)
-            == FILE.end()) // 标签名不存在，添加标签操作合法，则存入map中
+        if (FILE.find(tip)== FILE.end()) // 标签名不存在，添加标签操作合法，则存入map中
         {
             std::vector<file> document; // 新的vector<file>储存新文件
             document.push_back(newfile);
             FILE.insert(make_pair(tip, document));
+            newfile.tagtype.insert(make_pair(tip,1)); //在文件中存储该标签
+            
             cout << "添加成功" << endl;
-        } else // 如果标签已存在，由用户选择使用其他标签名还是给标签添加说明
+        }
+        else // 如果标签已存在，由用户选择使用其他标签名还是给标签添加说明
         {
             cout << "已存在 " << tip.name << " 标签" << endl;
             cout << "如需要使用其他标签请输入1，如需要给该标签添加说明请输入2，"
@@ -65,20 +69,44 @@ void function_02(std::map<tag, std::vector<file>>& FILE) {
             cin >> select;
             switch (select) {
                 case 1:
+                    while(tip.name==old_tip.name)
+                    {   
+                        cout<<"请输入新的标签名: "<<endl;
+                        if(tip.name!=old_tip.name)
+                        {
+                        cin >> tip.name;
+                        newfile.tagtype.insert(make_pair(tip,1));
+                        }
+                        else 
+                        {
+                        cout<<"请输入与原来不同的标签名！！！"<<endl;
+                        if(getout())break;
+                        }
+                    }
                     continue;
                 case 2:
                     tempfile = &FILE[tip];
                     FILE.erase(FILE.find(tip));
+                    for (auto pair : *tempfile)                //在文件中移除旧的注释
+                    {
+                        pair.tagtype.erase(old_tip);
+                    }
                     cout << "请输入对原标签的说明" << endl;
                     cin >> old_tip.explain;
                     cout << "请输入对新标签的说明" << endl;
                     cin >> tip.explain;
                     document.push_back(newfile);
-                    FILE.insert(make_pair(old_tip, *tempfile));
+                    FILE.insert(make_pair(old_tip, *tempfile));//在增加注释的标签下重新存放文件
                     FILE.insert(make_pair(tip, document));
+                    for (auto pair : *tempfile)                //在文件中存入新的注释
+                    {
+                        pair.tagtype.insert(make_pair(old_tip,1));
+                    }
+                    newfile.tagtype.insert(make_pair(tip,1));
                     continue;
                 case 3:
                     FILE[tip].push_back(newfile);
+                    newfile.tagtype.insert(make_pair(tip,1));
                     continue;
                 default:
                     cout << "没有这个选项！！！" << endl;
@@ -90,5 +118,5 @@ void function_02(std::map<tag, std::vector<file>>& FILE) {
 
 void function_03()
 {
-    
+
 }
