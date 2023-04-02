@@ -2,6 +2,7 @@
 
 using std::cin;
 using std::cout;
+using std::endl;
 
 int main(int argc, char *argv[]) {
     //! TODO: handle application startup here
@@ -33,14 +34,14 @@ int main(int argc, char *argv[]) {
                 function_06(FILE);
                 break;
             case 7:
+                function_07(FILE);      
                 break;
             case 8:
                 function_08(FILE);
                 break;
             default:
-                cout << "你故意找茬是吧？";
+                cout << "你故意找茬是吧？"<<endl;
                 system("pause");
-                break;
         }
     }
 

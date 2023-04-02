@@ -3,7 +3,6 @@
 #include <map>
 #include <vector>
 #include <cstdlib>
-typedef int tagbool;
 #include <filesystem>
 
 using address = std::string;
@@ -52,9 +51,12 @@ struct tag {
 
 void menu();
 bool getout();
+std::string judge_multi(std::string name, std::map < tag, std::vector<file> >& FILE);
 bool function_01(address filepath);
 void function_02(std::map<tag, std::vector<file>>& FILE);
 void function_03(std::map<tag, std::vector<file>>& FILE);
+void function_04(std::map<tag, std::vector<file>>& FILE);
 void function_05(std::map < tag, std::vector<file> >& FILE);
 void function_06(std::map < tag, std::vector<file> >& FILE);
+void function_07(std::map < tag, std::vector<file> >& FILE);
 void function_08(std::map < tag, std::vector<file> >&FILE);

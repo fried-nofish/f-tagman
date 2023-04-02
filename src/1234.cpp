@@ -125,25 +125,77 @@ void function_03(std::map<tag, std::vector<file>>& FILE)
     cin>>filename;
     fileip=fileip+"//"+filename;
     file delete_file(filename,fileip);
-    cout<<"该文件的标签有"<<endl;
+    cout<<"该文件的标签有: "<<endl;
 
-    for(auto it:FILE){
-		for(int i=0;i<it.second.size();i++){
-				
-			if((it.second[i].getip()==delete_file.getip())&&(it.second[i].getname()==delete_file.getname())){
-					
+    for(auto it:FILE)
+    {
+		for(int i=0;i<it.second.size();i++)
+        {	
+			if((it.second[i].getip()==delete_file.getip())&&(it.second[i].getname()==delete_file.getname()))
+            {		
 				cout<<it.first.name<<endl;
+                cout<<it.first.explain<<endl;
 				break;
 			}
 		}
 	}
 
     tag tip;
-    cout<<"输入你需要删除的标签"<<endl;
+    cout<<"分别输入你需要删除的标签名和说明: "<<endl;
     cin>>tip.name;
+    cin>>tip.explain;
     for(int i=0;i<FILE[tip].size();i++){
         if((FILE[tip][i].getip()==delete_file.getip())&&(FILE[tip][i].getname()==delete_file.getname())){
-			FILE[tip].erase(FILE[tip].begin()+i);
+			FILE[tip][i].tagtype.erase(tip);
+            FILE[tip].erase(FILE[tip].begin()+i);
+            if(FILE[tip].empty())FILE.erase(tip);
+			break;
+		}
+    }
+}
+
+void function_04(std::map<tag, std::vector<file>>& FILE)
+{
+    string filename;
+    address fileip;
+    cout<<"请输入需要修改文件的父目录: "<<endl;
+    cin>>fileip;
+    function_01(fileip);
+    cout<<"请输入文件名: "<<endl;
+    cin>>filename;
+    fileip=fileip+"//"+filename;
+    file change_file(filename,fileip);
+    cout<<"该文件的标签有: "<<endl;
+
+    for(auto it:FILE)
+    {
+		for(int i=0;i<it.second.size();i++)
+        {	
+			if((it.second[i].getip()==change_file.getip())&&(it.second[i].getname()==change_file.getname()))
+            {		
+				cout<<it.first.name;
+                cout<<it.first.explain<<endl;
+				break;
+			}
+		}
+	}
+    tag tip;
+    tag newtip;
+    cout<<"输入你需要修改的标签名和说明: "<<endl;
+    cin >> tip.name;
+    cin >> tip.explain;
+    cout<<"你要修改的是： "<<endl;
+    cout<< fileip <<endl;
+    cout<< tip.name <<"      "<< tip.explain <<endl;
+    cout<<"你要修改原标签名为：";
+    cin >> newtip.name;
+    cout<<"你要修改原标签说明为：";
+    cin >> newtip.explain;
+        for(int i=0;i<FILE[tip].size();i++){
+        if((FILE[tip][i].getip()==change_file.getip())&&(FILE[tip][i].getname()==change_file.getname()))
+        {
+			FILE[tip][i].tagtype.erase(tip);
+            FILE[tip][i].tagtype.insert(make_pair(newtip,1));
 			break;
 		}
     }
