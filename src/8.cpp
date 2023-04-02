@@ -55,6 +55,7 @@ void function_08(std::map < tag, std::vector<file> > &FILE) {
 				old_name=old_name+"//"+new_name;
 
 				file newfile(new_name,old_name);
+				newfile.tagtype = oldfile.tagtype;
 
 				new_name=old_name;
 
