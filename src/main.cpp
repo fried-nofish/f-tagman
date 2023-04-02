@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
                 function_02(FILE);
                 break;
             case 3:
+                function_03(FILE);
                 break;
             case 4:
                 break;

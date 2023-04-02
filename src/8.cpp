@@ -40,6 +40,7 @@ void function_08(std::map < tag, std::vector<file> > &FILE) {
 		}
 
 		old_name=result[x].getip();
+		file oldfile=result[x];
 
 		fs::path father(old_name);
 		
@@ -48,7 +49,7 @@ void function_08(std::map < tag, std::vector<file> > &FILE) {
 		std::cout << "请输入新文件的名称" << std::endl;
 		std::cin >> new_name;
 		
-		old_name=old_name+"\\"+new_name;
+		old_name=old_name+"//"+new_name;
 
 		file newfile(new_name,old_name);
 
@@ -56,8 +57,21 @@ void function_08(std::map < tag, std::vector<file> > &FILE) {
 
 		old_name=result[x].getip();
 
-		FILE[tip].erase(FILE[tip].begin()+x);
-		FILE[tip].push_back(newfile);
+		for(auto it:FILE){
+			for(int i=0;i<it.second.size();i++){
+				// std::cout<<it.second[i].getip()<<" "<<oldfile.getip()<<std::endl;
+				// std::cout<<it.second[i].getname()<<" "<<oldfile.getname()<<std::endl;
+				if((it.second[i].getip()==oldfile.getip())&&(it.second[i].getname()==oldfile.getname())){
+					// std::cout<<1<<std::endl;
+					FILE[it.first].erase(FILE[it.first].begin()+i);
+					FILE[it.first].push_back(newfile);
+					break;
+				}
+			}
+		}//遍历所有标签寻找是否有需要被改名的文件
+
+		// FILE[tip].erase(FILE[tip].begin()+x);
+		// FILE[tip].push_back(newfile);//删除旧文件增加新文件
 
 		
 		if (!rename(old_name.c_str(), new_name.c_str())){
@@ -68,7 +82,7 @@ void function_08(std::map < tag, std::vector<file> > &FILE) {
 		}
 	}
 	else {
-
+		std::cout<<"不存在该标签"<<std::endl;
     }
 	
 	

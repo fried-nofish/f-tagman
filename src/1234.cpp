@@ -114,7 +114,37 @@ void function_02(std::map<tag, std::vector<file>>& FILE) {
     }
 }
 
-void function_03()
+void function_03(std::map<tag, std::vector<file>>& FILE)
 {
+    string filename;
+    address fileip;
+    cout<<"请输入需要删除文件的父目录"<<endl;
+    cin>>fileip;
+    function_01(fileip);
+    cout<<"请输入需要删除的文件"<<endl;
+    cin>>filename;
+    fileip=fileip+"//"+filename;
+    file delete_file(filename,fileip);
+    cout<<"该文件的标签有"<<endl;
 
+    for(auto it:FILE){
+		for(int i=0;i<it.second.size();i++){
+				
+			if((it.second[i].getip()==delete_file.getip())&&(it.second[i].getname()==delete_file.getname())){
+					
+				cout<<it.first.name<<endl;
+				break;
+			}
+		}
+	}
+
+    tag tip;
+    cout<<"输入你需要删除的标签"<<endl;
+    cin>>tip.name;
+    for(int i=0;i<FILE[tip].size();i++){
+        if((FILE[tip][i].getip()==delete_file.getip())&&(FILE[tip][i].getname()==delete_file.getname())){
+			FILE[tip].erase(FILE[tip].begin()+i);
+			break;
+		}
+    }
 }
