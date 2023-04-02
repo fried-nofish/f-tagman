@@ -33,6 +33,7 @@ int main(int argc, char *argv[]) {
                 function_06(FILE);
                 break;
             case 7:
+                function_07(FILE);
                 break;
             case 8:
                 function_08(FILE);

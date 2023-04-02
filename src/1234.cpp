@@ -42,7 +42,13 @@ void function_02(std::map<tag, std::vector<file>>& FILE) {
         cin >> filename;
         cin >> tipname;
         tip.name = tipname;
+        fs::path str(fileaddress + "//" + filename);
+        if(!fs::exists(str)){
+            cout<<"你输入的文件不存在"<<endl;
+            continue;
+        }
         file newfile(filename, fileaddress + "//" + filename);
+        
         if (FILE.find(tip)== FILE.end()) // 标签名不存在，添加标签操作合法，则存入map中
         {
             std::vector<file> document; // 新的vector<file>储存新文件
@@ -132,7 +138,7 @@ void function_03(std::map<tag, std::vector<file>>& FILE)
 				
 			if((it.second[i].getip()==delete_file.getip())&&(it.second[i].getname()==delete_file.getname())){
 					
-				cout<<it.first.name<<endl;
+				cout<<it.first.name<<" "<<it.first.explain<<endl;
 				break;
 			}
 		}

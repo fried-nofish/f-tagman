@@ -57,4 +57,5 @@ void function_02(std::map<tag, std::vector<file>>& FILE);
 void function_03(std::map<tag, std::vector<file>>& FILE);
 void function_05(std::map < tag, std::vector<file> >& FILE);
 void function_06(std::map < tag, std::vector<file> >& FILE);
+void function_07(std::map < tag, std::vector<file> >& FILE);
 void function_08(std::map < tag, std::vector<file> >&FILE);
