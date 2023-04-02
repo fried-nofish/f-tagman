@@ -3,7 +3,7 @@
 #include <map>
 #include <vector>
 #include <cstdlib>
-typedef int tagbool;
+
 
 using address = std::string;
 struct tag;
@@ -25,7 +25,7 @@ public:
     }
 
     file operator=(const file& f);
-    std::map<tag,tagbool> tagtype;
+    std::map<tag,bool> tagtype;
 };
 
 struct tag {
