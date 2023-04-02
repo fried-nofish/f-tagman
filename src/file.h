@@ -38,7 +38,7 @@ public:
     }
 
     file operator=(const file& f);
-    std::map<tag,tagbool> tagtype;
+    std::map<tag,bool> tagtype;
 };
 
 struct tag {
