@@ -5,6 +5,7 @@
 #include <cstdlib>
 typedef int tagbool;
 #include <filesystem>
+using std::string;
 
 using address = std::string;
 struct tag;
@@ -52,9 +53,13 @@ struct tag {
 
 void menu();
 bool getout();
+string judge_multi(string name, std::map < tag, std::vector<file> >& FILE);
+void changeexit_tag(std::map < tag, std::vector<file> >& FILE, tag modify_tip, std::map<tag, std::vector<file>>::iterator re, string name);
+void printtag(std::map < tag, std::vector<file> >& FILE);
 bool function_01(address filepath);
 void function_02(std::map<tag, std::vector<file>>& FILE);
 void function_03(std::map<tag, std::vector<file>>& FILE);
 void function_05(std::map < tag, std::vector<file> >& FILE);
 void function_06(std::map < tag, std::vector<file> >& FILE);
+void function_07(std::map < tag, std::vector<file> >& FILE);
 void function_08(std::map < tag, std::vector<file> >&FILE);
