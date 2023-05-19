@@ -26,7 +26,7 @@ struct Tag {
     }
 };
 
-std::vector<Tag*> fileshowtag(const File&);  //展示单文件标签
+std::vector<Tag> fileshowtag(const File&);  //展示单文件标签
 bool fileindir(File file);  //确认输入文件存在于目录下
 Tag* taginvec(string name, string explain);  //确认输入tag存在于vector中
 File* fileinvec(string name, string addr);  //确认输入文件存在于vector中，用于给文件加标签

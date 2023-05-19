@@ -8,13 +8,29 @@ std::set<File> FileList;
 std::vector<Tag> TagList;
 std::set<int>TagScript;
 
-std::vector<Tag*> fileshowtag(const File&)
+std::vector<Tag> fileshowtag(const File& file)
 {
-
+    string filepath = file.address + file.name;
+    std::vector<Tag> tag;
+    for(auto &it : TagList){
+        for(auto &it2 : it.T_filelist){
+            string cur = it2->address + it2->name;
+            if(cur == filepath){
+                tag.push_back(it);
+                break;
+            }
+        }
+    }
+    return tag; 
 }  //展示单文件标签
 bool fileindir(File file)
 {
-
+    string s = file.address + file.name;
+    if (fs::exists(s) && fs::is_directory(s))
+    {
+        return true;
+    }
+  return false;
 }  //确认输入文件存在于目录下
 Tag* taginvec(string name, string explain)
 {
