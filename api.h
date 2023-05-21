@@ -2,6 +2,7 @@
 
 #include<filesystem>
 #include<iostream>
+#include<utility>
 #include<vector>
 #include<queue>
 #include<set>
@@ -45,9 +46,9 @@ std::vector<Tag*> fileshowtag(const File&);  //展示单文件标签
 bool fileindir(File file);  //确认输入文件存在于目录下
 Tagint taginvec(string name, string explain);  //确认输入tag存在于vector中
 File* fileinset(string name, string addr);  //确认输入文件存在于vector中，用于给文件加标签
-File* fileinvec(string name);  //确认输入文件存在于vector中，用于删标签
-bool fileaddtag(File* file, Tag* tag);  //给文件添加标签
-bool filedeltag(File* file, Tag* tagpoint);  //给文件删除标签
+std::pair<File*,Tagint> fileinvec(string name, string addr);  //确认输入文件存在于vector中，用于删标签
+bool fileaddtag(File* file, Tagint tag);  //给文件添加标签
+bool filedeltag(File* file, Tagint tagpoint);  //给文件删除标签
 bool tagdel(string name, string explain);  //删除某标签
 bool tagrename(string old_name, string new_name, string explain);  //标签改名
 bool tagexplain(string name, string explain);  //给标签添加说明

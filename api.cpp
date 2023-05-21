@@ -45,26 +45,24 @@ File* fileinset(string name, string addr)
     auto itr = FileList.find(newfile);
     File* it = &(File)*itr;
     return it;
-    
-
 }  //确认输入文件存在于set中，用于给文件加标签
 
-File* fileinvec(string name, string addr)
+std::pair<File*,Tagint> fileinvec(string filename, string addr,string tagname, string explain)
 {
+
     for(int i = 0; i < TagList.size(); ++i)
 	{
 		for(int j = 0; j < TagList[i].T_filelist.size();++j)
         {
-            if(TagList[i].T_filelist[j]->name==name&&TagList[i].T_filelist[j]->address==addr)return TagList[i].T_filelist[j];
+            if(TagList[i].T_filelist[j]->name==filename&&TagList[i].T_filelist[j]->address==addr
+            &&TagList[i].name==tagname&&TagList[i].explain==explain)
+            return std::pair<File*,Tagint>(TagList[i].T_filelist[j],j);
         }
-        return NULL;
+        return std::pair<File*,Tagint>(NULL,NULL);
 	}
 }  //确认输入文件存在于vector中，用于删标签
 
-
-
-
-bool fileaddtag(File* file, Tag* tag)
+bool fileaddtag(File* file, Tagint tag)
 {
 
 }  //给文件添加标签
