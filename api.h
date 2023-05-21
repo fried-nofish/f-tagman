@@ -50,6 +50,6 @@ bool fileaddtag(File* file, Tag* tag);  //给文件添加标签
 bool filedeltag(File* file, Tag* tagpoint);  //给文件删除标签
 bool tagdel(string name, string explain);  //删除某标签
 bool tagrename(string old_name, string new_name, string explain);  //标签改名
-bool tagexplain(string name, string explain);  //给标签添加说明
+bool tagexplain(string name, string old_explain, string new_explain);  //给标签添加说明
 
 
