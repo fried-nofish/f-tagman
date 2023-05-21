@@ -83,15 +83,40 @@ bool filedeltag(File* file, Tagint tagpoint)
 
 bool tagdel(string name, string explain)
 {
-
+    for(int i = 0 ; i < TagList.size() ; i ++)
+    {
+        if(TagList[i].name == name && TagList[i].explain == explain) 
+        {
+            TagList[i].name = "", TagList[i].explain = "";
+            TagScript.push(i);
+            return 1;
+        }
+    }
+    return 0;
 }  //删除某标签
 
-bool tagrename(Tagint delete_tagpoint, string new_name)
+bool tagrename(string old_name, string new_name, string explain)
 {
-    TagList[delete_tagpoint].name = new_name;
+    for(int i = 0; i < TagList.size(); i++)
+    {
+        if(TagList[i].name == old_name && TagList[i].explain == explain)
+        {
+            TagList[i].name = new_name;
+            return 1;
+        }
+    }
+    return 0;
 } //标签改名
 
-bool tagexplain(string name, string explain)
+bool tagexplain(string name, string old_explain, string new_explain)
 {
-
+    for(int i = 0; i < TagList.size(); i++)
+    {
+        if(TagList[i].name == name && TagList[i].explain == old_explain)
+        {
+            TagList[i].explain = new_explain;
+            return 1;
+        }
+    }
+    return 0;
 }  //给标签添加说明
