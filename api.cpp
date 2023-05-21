@@ -62,9 +62,11 @@ std::pair<File*,Tagint> fileinvec(string filename, string addr,string tagname, s
 	}
 }  //确认输入文件存在于vector中，用于删标签
 
-bool fileaddtag(File* file, Tagint tag)
+bool fileaddtag(File* file, Tagint size)
 {
-
+    if(size==TagList.size())--size;
+    TagList[size].T_filelist.push_back(file);
+    return 1;
 }  //给文件添加标签
 
 bool filedeltag(File* file, Tagint tagpoint)
