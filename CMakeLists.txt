@@ -20,9 +20,6 @@ set(PROJECT_SOURCES
         newwindow.cpp
         newwindow.h
         newwindow.ui
-        deletetag.cpp
-        deletetag.h
-        deletetag.ui
         dialog.cpp
         dialog.h
         dialog.ui
