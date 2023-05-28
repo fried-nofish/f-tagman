@@ -1,11 +1,11 @@
 #include <QFileDialog>
 #include <QInputDialog>
 #include <QString>
+#include <QMessageBox>
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "newwindow.h"
 #include "api.h"
-#include "deletetag.h"
 #include "dialog.h"
 #include <iostream>
 using namespace std;
@@ -110,14 +110,20 @@ void MainWindow::on_pushButton_4_clicked()
         file.address = newfile_path;
         std::vector<Tag> taglist;
         taglist = fileshowtag(file);
+        if(!taglist.empty()){
+            Dialog *deletewindow = new Dialog;
 
-        Dialog *deletewindow = new Dialog;
+            deletewindow->init(taglist);
+            deletewindow->exec();
 
-        deletewindow->init(taglist);
-        deletewindow->exec();
+            int index=deletewindow->num;
+            filedeltag(fileinset(newfile_name,newfile_path),taginvec(taglist[index].name,""));
+        }
+        else{
+            QMessageBox::information(this, "警告","当前文件没有标签");
 
-        int index=deletewindow->num;
-        filedeltag(fileinset(newfile_name,newfile_path),taginvec(taglist[index].name,""));
+        }
+
     }
 }
 

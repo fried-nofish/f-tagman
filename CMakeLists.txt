@@ -20,10 +20,10 @@ set(PROJECT_SOURCES
         newwindow.cpp
         newwindow.h
         newwindow.ui
+
         dialog.cpp
         dialog.h
         dialog.ui
-        common.h
 
         api.cpp
         api.h

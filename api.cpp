@@ -69,15 +69,16 @@ std::pair<File,Tagint> fileinvec(string filename, string addr,string tagname, st
 
     for(int i = 0; i < TagList.size(); ++i)
 	{
-        File file("","");
 		for(int j = 0; j < TagList[i].T_filelist.size();++j)
         {
             if(TagList[i].T_filelist[j].name==filename&&TagList[i].T_filelist[j].address==addr
             &&TagList[i].name==tagname&&TagList[i].explain==explain)
             return std::pair<File,Tagint>(TagList[i].T_filelist[j],j);
         }
-        return std::pair<File,Tagint>(file,NULL);
-	}
+    }
+    File file("","");
+    return std::pair<File,Tagint>(file,NULL);
+
 }  //确认输入文件存在于vector中，用于删标签
 
 bool fileaddtag(File file, Tagint size)
