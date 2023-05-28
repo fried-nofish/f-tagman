@@ -98,12 +98,5 @@ void MainWindow::on_pushButton_4_clicked() {
 
         }
 
-<<<<<<< HEAD
-=======
-        int index = deletewindow->num;
-        filedeltag(
-            fileinset(newfile_name, newfile_path),
-            taginvec(taglist[index].name, ""));
->>>>>>> 1dc4af7a9a77d81fae0f3d0a75bbc66b2ab38396
     }
 }
