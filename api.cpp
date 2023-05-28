@@ -7,6 +7,7 @@ namespace fs = std::filesystem;
 std::set<File> FileList;
 std::vector<Tag> TagList;
 std::queue<int>TagScript;
+File tempfile("","");
 
 std::vector<Tag> fileshowtag(const File& file)
 {
@@ -14,7 +15,8 @@ std::vector<Tag> fileshowtag(const File& file)
     std::vector<Tag> tag;
     for(auto &it : TagList){
         for(auto &it2 : it.T_filelist){
-            string cur = it2->address + it2->name;
+            string cur = it2.address+ it2.name;
+            std::cout<<cur<<" "<<filepath<<std::endl;
             if(cur == filepath){
                 tag.push_back(it);
                 break;
@@ -54,43 +56,43 @@ Tagint taginvec(string name, string explain)
     return TagList.size();
 }  //确认输入tag存在于vector中,存在则返回其下标，不存在则创建并返回新的size
 
-File* fileinset(string name, string addr)
+File fileinset(string name, string addr)
 {
-    File newfile(name,addr);
+    File newfile(addr,name);
     FileList.insert(newfile);
-    auto itr = FileList.find(newfile);
-    File* it = &(File)*itr;
-    return it;
+    tempfile = newfile;
+    return tempfile;
 }  //确认输入文件存在于set中，用于给文件加标签
 
-std::pair<File*,Tagint> fileinvec(string filename, string addr,string tagname, string explain)
+std::pair<File,Tagint> fileinvec(string filename, string addr,string tagname, string explain)
 {
 
     for(int i = 0; i < TagList.size(); ++i)
 	{
+        File file("","");
 		for(int j = 0; j < TagList[i].T_filelist.size();++j)
         {
-            if(TagList[i].T_filelist[j]->name==filename&&TagList[i].T_filelist[j]->address==addr
+            if(TagList[i].T_filelist[j].name==filename&&TagList[i].T_filelist[j].address==addr
             &&TagList[i].name==tagname&&TagList[i].explain==explain)
-            return std::pair<File*,Tagint>(TagList[i].T_filelist[j],j);
+            return std::pair<File,Tagint>(TagList[i].T_filelist[j],j);
         }
-        return std::pair<File*,Tagint>(NULL,NULL);
+        return std::pair<File,Tagint>(file,NULL);
 	}
 }  //确认输入文件存在于vector中，用于删标签
 
-bool fileaddtag(File* file, Tagint size)
+bool fileaddtag(File file, Tagint size)
 {
-    if(size==TagList.size())--size;
+    if(size==TagList.size()) --size;
     TagList[size].T_filelist.push_back(file);
     return 1;
 }  //给文件添加标签
 
-bool filedeltag(File* file, Tagint tagpoint)
+bool filedeltag(File file, Tagint tagpoint)
 {
     for(int i = 0; i < TagList[tagpoint].T_filelist.size(); i++)
     {
         //如果此标签里有此文件，删除并返回1，否则返回0
-        if(TagList[tagpoint].T_filelist[i]->name == file->name && TagList[tagpoint].T_filelist[i]->address == file->address)
+        if(TagList[tagpoint].T_filelist[i].name == file.name && TagList[tagpoint].T_filelist[i].address == file.address)
         {
             TagList[tagpoint].T_filelist.erase(TagList[tagpoint].T_filelist.begin() + i);
             return 1;
