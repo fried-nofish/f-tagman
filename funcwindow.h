@@ -14,6 +14,8 @@ class FuncWindow : public QMainWindow
 public:
     FuncWindow(QWidget *parent = nullptr);
     ~FuncWindow();
+    int open_row = 0;
+    int open_col = 0;
 
 private slots:
     void on_pushButton_2_clicked();
@@ -21,7 +23,7 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_pushButton_4_clicked();
-    
+
     void on_pushButton_clicked();
 
     void shotsign();
