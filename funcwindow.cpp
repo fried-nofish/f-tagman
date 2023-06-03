@@ -42,7 +42,8 @@ FuncWindow::FuncWindow(QWidget *parent)
     pix_btn_close.load(":/img/close.png");
     btn_close->setFixedSize(25, 25);
     btn_close->setStyleSheet("border-image:url(:/img/close.png);");
-    connect(btn_close, &QPushButton::clicked, this, &FuncWindow::close);
+    connect(btn_close, &QPushButton::clicked, this, &FuncWindow::shotsign);
+    connect(this,SIGNAL(sendsignal()),this,SLOT(close_window()));
 }
 
 FuncWindow::~FuncWindow()
@@ -141,3 +142,28 @@ void FuncWindow::on_pushButton_4_clicked()
 }
 
 
+void FuncWindow::on_pushButton_clicked()
+{
+    Dialog *deletewindow = new Dialog;
+    std::vector<Tag> taglist = showalltag();
+    deletewindow->init(taglist);
+    int result = deletewindow->exec();
+    if(result){
+        int index=deletewindow->num;
+        ui->textEdit->clear();
+        for(auto i : taglist[index].T_filelist){
+            ui->textEdit->insertPlainText(QString::fromStdString(i.name+"\n"));
+        }
+    }
+
+}
+
+void FuncWindow::shotsign()
+{
+    emit sendsignal();
+}
+
+void FuncWindow::close_window()
+{
+    this->close();
+}

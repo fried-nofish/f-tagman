@@ -33,9 +33,8 @@ public:
 
 private slots:
     void reshow();
-    void on_btn_close_clicked();
+    void btn_close_clicked();
 
-    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
