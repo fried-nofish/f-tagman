@@ -6,14 +6,53 @@
 #include <QString>
 #include <QMessageBox>
 #include <QDebug>
+#include "funcwindow.h"
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "newwindow.h"
 #include "api.h"
-#include "dialog.h"
 
 
 
+void MainWindow::read_file()
+{
+    QFile file1("test.txt");
+    file1.setFileName("test.txt");
+    if(file1.open(QIODevice::ReadOnly|QIODevice::Text)){
+        //第二种方式就是一数据流读取文件内容
+        QDataStream in(&file1);
+        QString str = file1.readLine();
+        str = str.trimmed();
+        int file_num = str.toInt();
+        while(file_num--){
+
+            int tag_num;
+            QString file_name = file1.readLine();
+            file_name = file_name.trimmed();
+            str = file1.readLine();
+            str = str.trimmed();
+            tag_num = str.toInt();
+            while(tag_num--){
+                QString tag_name = file1.readLine();
+                tag_name = tag_name.trimmed();
+                QString tag_explain = file1.readLine();
+                tag_explain = tag_explain.trimmed();
+
+                string newfile_path=file_name.toStdString();
+                std::filesystem::path newfile(newfile_path);
+                string newfile_name=newfile.filename().string();
+
+
+                fileaddtag(fileinset(newfile_name,newfile_path),taginvec(tag_name.toStdString(),tag_explain.toStdString()));
+            }
+        }
+
+
+        file1.close();
+
+    }else{
+        qDebug()<<file1.errorString();
+    }
+}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -59,7 +98,6 @@ MainWindow::MainWindow(QWidget *parent)
     btn_close->setStyleSheet("border-image:url(:/img/close.png);");
     connect(btn_close, &QPushButton::clicked, this, &MainWindow::close);
     connect(btn_start, SIGNAL(clicked()),this,SLOT(on_btn_close_clicked()));
-
 }
 
 MainWindow::~MainWindow(){
@@ -117,153 +155,19 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     mouse_Flag_Clicked = false;
 }
 
-void MainWindow::read_file()
+void MainWindow::on_btn_close_clicked()
 {
-    QFile file1("test.txt");
-    file1.setFileName("test.txt");
-    if(file1.open(QIODevice::ReadOnly|QIODevice::Text)){
-        //第二种方式就是一数据流读取文件内容
-        QDataStream in(&file1);
-        QString str = file1.readLine();
-        str = str.trimmed();
-        int file_num = str.toInt();
-        while(file_num--){
+    this->hide();
+    FuncWindow *con = new FuncWindow;
+    connect(con,SIGNAL(sendsignal()),this,SLOT(reshow()));
+    con->show();
 
-            int tag_num;
-            QString file_name = file1.readLine();
-            file_name = file_name.trimmed();
-            str = file1.readLine();
-            str = str.trimmed();
-            tag_num = str.toInt();
-            while(tag_num--){
-                QString tag_name = file1.readLine();
-                tag_name = tag_name.trimmed();
-                QString tag_explain = file1.readLine();
-                tag_explain = tag_explain.trimmed();
-
-                string newfile_path=file_name.toStdString();
-                std::filesystem::path newfile(newfile_path);
-                string newfile_name=newfile.filename().string();
-
-
-                fileaddtag(fileinset(newfile_name,newfile_path),taginvec(tag_name.toStdString(),tag_explain.toStdString()));
-            }
-        }
-
-
-        file1.close();
-
-    }else{
-        qDebug()<<file1.errorString();
-    }
 }
 
 void MainWindow::reshow()
 {
     this->show();
 }
-
-
-
-void MainWindow::on_btn_close_clicked()
-{
-    this->hide();
-    newWindow *con = new newWindow;
-    connect(con,SIGNAL(sendsignal()),this,SLOT(reshow()));
-    con->show();
-
-}
-
-
-void MainWindow::on_pushButton_2_clicked()
-{
-    QString fileName =  QFileDialog::getOpenFileName(this,tr("打开文件"),"./",tr("All file (*.*)"));
-    if(!fileName.isEmpty()){
-
-        ui->textEdit->clear();
-        string newfile_path=fileName.toStdString();
-        std::filesystem::path newfile(newfile_path);
-        string newfile_name=newfile.filename().string();
-        File file("","");
-        file.name =  newfile_name;
-        file.address = newfile_path;
-        std::vector<Tag> taglist;
-        taglist = fileshowtag(file);
-        for(const auto &i : taglist){
-            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
-        }
-    }
-}
-
-
-
-
-void MainWindow::on_pushButton_3_clicked()
-{
-    QString fileName =  QFileDialog::getOpenFileName(this,tr("打开文件"),"./",tr("All file (*.*)"));
-    if(!fileName.isEmpty()){
-
-
-        string newfile_path=fileName.toStdString();
-        std::filesystem::path newfile(newfile_path);
-        string newfile_name=newfile.filename().string();
-        File file("","") ;
-        file.name =  newfile_name;
-        file.address = newfile_path;
-
-        bool bOk = false;
-        QString sName = QInputDialog::getText(this,
-                                              "QInputdialog_Name",
-                                              "标签名",
-                                              QLineEdit::Normal,
-                                              "",
-                                              &bOk
-                                              );
-        fileaddtag(fileinset(newfile_name,newfile_path),taginvec(sName.toStdString(),""));
-    }
-
-}
-
-
-
-void MainWindow::on_pushButton_4_clicked()
-{
-    QString fileName =  QFileDialog::getOpenFileName(this,tr("打开文件"),"./",tr("All file (*.*)"));
-    if(!fileName.isEmpty()){
-
-
-        string newfile_path=fileName.toStdString();
-        std::filesystem::path newfile(newfile_path);
-        string newfile_name=newfile.filename().string();
-        File file("","") ;
-        file.name =  newfile_name;
-        file.address = newfile_path;
-        std::vector<Tag> taglist;
-        taglist = fileshowtag(file);
-        if(!taglist.empty()){
-            Dialog *deletewindow = new Dialog;
-
-            deletewindow->init(taglist);
-            int result = deletewindow->exec();
-            if(result){
-                int index=deletewindow->num;
-                filedeltag(fileinset(newfile_name,newfile_path),taginvec(taglist[index].name,""));
-            }
-
-        }
-        else{
-            QMessageBox::information(this, "警告","当前文件没有标签");
-
-        }
-        ui->textEdit->clear();
-        taglist = fileshowtag(file);
-        for(auto i : taglist){
-            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
-        }
-
-    }
-}
-
 
 
 

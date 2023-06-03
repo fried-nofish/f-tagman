@@ -23,7 +23,7 @@ struct File {
         this->name=name;
         this->address=address;
     }
-    bool operator==(const struct File & f)const       //重载<运算符
+    bool operator==(const struct File & f)const       //重载==运算符
     {                                                //根据name和address去重
         return this->name == f.name && this->address == f.address;
     }

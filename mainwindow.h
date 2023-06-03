@@ -31,17 +31,9 @@ public:
     void mouseReleaseEvent(QMouseEvent *event);
     void read_file();
 
-
 private slots:
-    void on_btn_close_clicked();
     void reshow();
-
-
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
-    void on_pushButton_4_clicked();
+    void on_btn_close_clicked();
 
 private:
     Ui::MainWindow *ui;

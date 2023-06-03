@@ -13,6 +13,7 @@
         <file>img/off-screen.png</file>
         <file>img/start_interface.jpg</file>
         <file>img/startbutton.png</file>
+        <file>img/fun_interface.jpg</file>
     </qresource>
     <qresource prefix="/img"/>
 </RCC>

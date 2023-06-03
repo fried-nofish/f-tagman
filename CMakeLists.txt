@@ -25,6 +25,10 @@ set(PROJECT_SOURCES
         dialog.h
         dialog.ui
 
+        funcwindow.cpp
+        funcwindow.h
+        funcwindow.ui
+
         api.cpp
         api.h
         res.qrc
