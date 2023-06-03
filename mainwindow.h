@@ -35,6 +35,8 @@ private slots:
     void reshow();
     void on_btn_close_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     bool mouse_Flag_Clicked;  //鼠标点击左键

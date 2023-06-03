@@ -23,7 +23,7 @@ std::vector<Tag> fileshowtag(const File& file)
             }
         }
     }
-    return tag;
+    return tag; 
 }  //展示单文件标签
 
 bool fileindir(File file)
@@ -40,10 +40,10 @@ bool fileindir(File file)
 Tagint taginvec(string name, string explain)
 {
     //先查找，存在tag则返回其下标
-    for(int i = 0; i < TagList.size(); ++i)
-    {
-        if(TagList[i].name==name && TagList[i].explain==explain) return i;
-    }
+	for(int i = 0; i < TagList.size(); ++i)
+	{
+		if(TagList[i].name==name && TagList[i].explain==explain) return i;
+	}
     //不存在tag则构建一个
     Tag newtag(name,explain);
     if(!TagScript.empty()){
@@ -60,7 +60,6 @@ File fileinset(string name, string addr)
 {
     File newfile(addr,name);
     FileList.insert(newfile);
-    qDebug()<<FileList.size();
     tempfile = newfile;
     return tempfile;
 }  //确认输入文件存在于set中，用于给文件加标签
@@ -69,12 +68,12 @@ std::pair<File,Tagint> fileinvec(string filename, string addr,string tagname, st
 {
 
     for(int i = 0; i < TagList.size(); ++i)
-    {
-        for(int j = 0; j < TagList[i].T_filelist.size();++j)
+	{
+		for(int j = 0; j < TagList[i].T_filelist.size();++j)
         {
             if(TagList[i].T_filelist[j].name==filename&&TagList[i].T_filelist[j].address==addr
-                &&TagList[i].name==tagname&&TagList[i].explain==explain)
-                return std::pair<File,Tagint>(TagList[i].T_filelist[j],j);
+            &&TagList[i].name==tagname&&TagList[i].explain==explain)
+            return std::pair<File,Tagint>(TagList[i].T_filelist[j],j);
         }
     }
     File file("","");
@@ -107,7 +106,7 @@ bool tagdel(string name, string explain)
 {
     for(int i = 0 ; i < TagList.size() ; i ++)
     {
-        if(TagList[i].name == name && TagList[i].explain == explain)
+        if(TagList[i].name == name && TagList[i].explain == explain) 
         {
             TagList[i].name = "", TagList[i].explain = "";
             TagScript.push(i);
@@ -151,4 +150,18 @@ std::vector<File> showallfile()
         a_file.push_back(it);
     }
     return a_file;
+}
+
+std::vector<File> tagshowfile(const Tag &tag)
+{
+    std::vector<File> result;
+    for(auto &it : TagList){
+        if(it == tag)return tag.T_filelist;
+    }
+    return result;
+}
+
+std::vector<Tag> showalltag()
+{
+    return TagList;
 }
