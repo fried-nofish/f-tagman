@@ -25,11 +25,11 @@ struct File {
     }
     bool operator==(const struct File & f)const       //重载<运算符
     {                                                //根据name和address去重
-        return this->name == f.name && this->address == f.address;
+            return this->name == f.name && this->address == f.address;
     }
     bool operator<(const struct File & f)const       //重载<运算符
     {                                                //根据name和address去重
-        return this->name < f.name ;
+            return this->name < f.name ;
     }
 };
 struct Tag {
@@ -47,7 +47,10 @@ struct Tag {
 };
 
 std::vector<Tag> fileshowtag(const File&);  //展示单文件标签
+std::vector<Tag> showalltag();  //展示单文件标签
+std::vector<File> tagshowfile(const Tag&); //展示单文件标签
 std::vector<File> showallfile();//展示所有文件
+
 bool fileindir(File file);  //确认输入文件存在于目录下
 Tagint taginvec(string name, string explain);  //确认输入tag存在于vector中
 File fileinset(string name, string addr);  //确认输入文件存在于vector中，用于给文件加标签

@@ -38,6 +38,8 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     bool mouse_Flag_Clicked;  //鼠标点击左键

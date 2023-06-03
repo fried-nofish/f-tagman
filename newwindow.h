@@ -5,9 +5,10 @@
 
 namespace Ui {
 class newWindow;
-} // namespace Ui
+}
 
-class newWindow : public QWidget {
+class newWindow : public QWidget
+{
     Q_OBJECT
 
 public:
@@ -17,10 +18,13 @@ public:
 private:
     Ui::newWindow *ui;
 
+
 signals:
-    void sendsignal();
+    void  sendsignal();
 private slots:
     void on_pushButton_clicked();
 };
+
+
 
 #endif // NEWWINDOW_H

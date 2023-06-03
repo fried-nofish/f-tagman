@@ -187,10 +187,13 @@ void MainWindow::on_pushButton_2_clicked()
         File file("","");
         file.name =  newfile_name;
         file.address = newfile_path;
+
+        ui->textEdit->insertPlainText(QString::fromStdString(file.name+"的标签有"+"\n"));
+
         std::vector<Tag> taglist;
         taglist = fileshowtag(file);
         for(auto i : taglist){
-            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
+            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain+"\n"));
         }
     }
 }
@@ -265,5 +268,19 @@ void MainWindow::on_pushButton_4_clicked()
 }
 
 
+void MainWindow::on_pushButton_clicked()
+{
+    Dialog *deletewindow = new Dialog;
+    std::vector<Tag> taglist = showalltag();
+    deletewindow->init(taglist);
+    int result = deletewindow->exec();
+    if(result){
+        int index=deletewindow->num;
+        ui->textEdit->clear();
+        for(auto i : taglist[index].T_filelist){
+            ui->textEdit->insertPlainText(QString::fromStdString(i.name+"\n"));
+        }
+    }
 
+}
 

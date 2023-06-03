@@ -6,19 +6,21 @@
 
 namespace Ui {
 class Dialog;
-} // namespace Ui
+}
 
-class Dialog : public QDialog {
+class Dialog : public QDialog
+{
     Q_OBJECT
 
 public:
-    int num = 0;
+    int num=0;
     explicit Dialog(QWidget *parent = nullptr);
     ~Dialog();
     void init(std::vector<Tag>);
 
 private:
     Ui::Dialog *ui;
+
 
 public slots:
     void on_comboBox_activated(int index);
