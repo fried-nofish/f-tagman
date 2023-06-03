@@ -3,17 +3,18 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
+#include <QPushButton>
+#include <QMouseEvent>
+#include <QPoint>
+#include <QPointF>
+
 
 QT_BEGIN_NAMESPACE
-
-namespace Ui {
-class MainWindow;
-} // namespace Ui
-
+namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow
-    : public QMainWindow
+class MainWindow : public QMainWindow
 
 {
     Q_OBJECT
@@ -23,9 +24,11 @@ public:
     ~MainWindow();
     void read_file();
 
+
 private slots:
     void on_pushButton_clicked();
     void reshow();
+
 
     void on_pushButton_2_clicked();
 
