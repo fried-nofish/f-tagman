@@ -81,7 +81,7 @@ void MainWindow::on_pushButton_2_clicked()
         file.address = newfile_path;
         std::vector<Tag> taglist;
         taglist = fileshowtag(file);
-        for(auto i : taglist){
+        for(const auto &i : taglist){
             ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
         }
     }
