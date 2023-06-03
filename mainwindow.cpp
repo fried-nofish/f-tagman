@@ -97,7 +97,7 @@ MainWindow::MainWindow(QWidget *parent)
     btn_close->setFixedSize(25, 25);
     btn_close->setStyleSheet("border-image:url(:/img/close.png);");
     connect(btn_close, &QPushButton::clicked, this, &MainWindow::close);
-    connect(btn_start, SIGNAL(clicked()),this,SLOT(on_btn_close_clicked()));
+    connect(btn_start, SIGNAL(clicked()),this,SLOT(btn_close_clicked()));
 }
 
 MainWindow::~MainWindow(){
@@ -155,7 +155,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event)
     mouse_Flag_Clicked = false;
 }
 
-void MainWindow::on_btn_close_clicked()
+void MainWindow::btn_close_clicked()
 {
     this->hide();
     FuncWindow *con = new FuncWindow;
@@ -170,5 +170,5 @@ void MainWindow::reshow()
 }
 
 
-}
+
 
