@@ -6,10 +6,10 @@
 #include <QString>
 #include <QMessageBox>
 #include <QDebug>
+#include<QWidget>
 #include "funcwindow.h"
 #include "qpushbutton.h"
 #include "ui_funcwindow.h"
-#include "newwindow.h"
 #include "api.h"
 #include "dialog.h"
 
@@ -20,8 +20,6 @@ FuncWindow::FuncWindow(QWidget *parent)
     , ui(new Ui::FuncWindow)
 {
     ui->setupUi(this);
-    //    QPushButton *newb = new QPushButton(this);
-    //设置应用程序图标
     this->setWindowIcon(QIcon(":/img/logo.png"));
     //隐藏标题栏
     this->setWindowFlags(Qt::FramelessWindowHint);
@@ -33,6 +31,53 @@ FuncWindow::FuncWindow(QWidget *parent)
     this->setFixedSize(pix_bk.size());
     //border-image使图片自适应
     this->setStyleSheet("QMainWindow {border-image:url(:/img/fun_interface.jpg)}");
+
+    //创建4个push button对象
+    QPushButton *btn_addtag = new QPushButton(this);
+    QPushButton *btn_deltag = new QPushButton(this);
+    QPushButton *btn_viewtag = new QPushButton(this);
+    QPushButton *btn_findfile = new QPushButton(this);
+
+    //设置按钮图案
+    QPixmap pix_btn_addtag;
+    QPixmap pix_btn_deltag;
+    QPixmap pix_btn_viewtag;
+    QPixmap pix_btn_findfile;
+
+    pix_btn_addtag.load(":/img/addtag.jpg");
+    pix_btn_deltag.load(":/img/deltag.jpg");
+    pix_btn_viewtag.load(":/img/viewtag.jpg");
+    pix_btn_findfile.load(":/img/findfile.jpg");
+
+    pix_btn_addtag = pix_btn_addtag.scaled(100,100,Qt::KeepAspectRatio);
+    pix_btn_deltag = pix_btn_deltag.scaled(100,100,Qt::KeepAspectRatio);
+    pix_btn_viewtag = pix_btn_viewtag.scaled(100,100,Qt::KeepAspectRatio);
+    pix_btn_findfile = pix_btn_findfile.scaled(100,100,Qt::KeepAspectRatio);
+
+    //将四个按钮加入布局中
+    btn_addtag->move(50,250);
+    btn_deltag->move(50,400);
+    btn_viewtag->move(180,250);
+    btn_findfile->move(180,400);
+
+
+    //图片自适应
+    btn_addtag->setFixedSize(pix_btn_addtag.size());
+    btn_deltag->setFixedSize(pix_btn_deltag.size());
+    btn_viewtag->setFixedSize(pix_btn_viewtag.size());
+    btn_findfile->setFixedSize(pix_btn_findfile.size());
+
+    btn_addtag->setStyleSheet("border-image:url(:/img/addtag.jpg);");
+    btn_deltag->setStyleSheet("border-image:url(:/img/deltag.jpg);");
+    btn_viewtag->setStyleSheet("border-image:url(:/img/viewtag.jpg);");
+    btn_findfile->setStyleSheet("border-image:url(:/img/findfile.jpg);");
+
+
+    //设置触发条件
+    connect(btn_addtag,&QPushButton::clicked,this,&FuncWindow::on_pushButton_3_clicked);
+    connect(btn_deltag,&QPushButton::clicked,this,&FuncWindow::on_pushButton_4_clicked);
+    connect(btn_viewtag,&QPushButton::clicked,this,&FuncWindow::on_pushButton_2_clicked);
+    connect(btn_findfile,&QPushButton::clicked,this,&FuncWindow::on_pushButton_clicked);
 
     //关闭窗口按钮
     QPushButton * btn_close = new QPushButton;
@@ -51,13 +96,28 @@ FuncWindow::~FuncWindow()
     delete ui;
 }
 
+void FuncWindow::on_pushButton_clicked()
+{
+    Dialog *deletewindow = new Dialog;
+    std::vector<Tag> taglist = showalltag();
+    deletewindow->init(taglist);
+    int result = deletewindow->exec();
+    if(result){
+        int index=deletewindow->num;
+        ui->textEdit->clear();
+        for(const auto &i : taglist[index].T_filelist){
+            ui->textEdit->insertPlainText(QString::fromStdString(i.name+"\n"));
+        }
+    }
+
+}
 
 void FuncWindow::on_pushButton_2_clicked()
 {
     QString fileName =  QFileDialog::getOpenFileName(this,tr("打开文件"),"./",tr("All file (*.*)"));
     if(!fileName.isEmpty()){
 
-        //ui->textEdit->clear();
+        ui->textEdit->clear();
         string newfile_path=fileName.toStdString();
         std::filesystem::path newfile(newfile_path);
         string newfile_name=newfile.filename().string();
@@ -67,7 +127,7 @@ void FuncWindow::on_pushButton_2_clicked()
         std::vector<Tag> taglist;
         taglist = fileshowtag(file);
         for(const auto &i : taglist){
-           // ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
+            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
         }
     }
 }
@@ -132,30 +192,13 @@ void FuncWindow::on_pushButton_4_clicked()
             QMessageBox::information(this, "警告","当前文件没有标签");
 
         }
-       // ui->textEdit->clear();
-        taglist = fileshowtag(file);
-        for(auto i : taglist){
-         //   ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
-        }
-
-    }
-}
-
-
-void FuncWindow::on_pushButton_clicked()
-{
-    Dialog *deletewindow = new Dialog;
-    std::vector<Tag> taglist = showalltag();
-    deletewindow->init(taglist);
-    int result = deletewindow->exec();
-    if(result){
-        int index=deletewindow->num;
         ui->textEdit->clear();
-        for(auto i : taglist[index].T_filelist){
-            ui->textEdit->insertPlainText(QString::fromStdString(i.name+"\n"));
+        taglist = fileshowtag(file);
+        for(const auto &i : taglist){
+            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
         }
-    }
 
+    }
 }
 
 void FuncWindow::shotsign()

@@ -18,7 +18,7 @@ void MainWindow::read_file()
     QFile file1("test.txt");
     file1.setFileName("test.txt");
     if(file1.open(QIODevice::ReadOnly|QIODevice::Text)){
-        //第二种方式就是一数据流读取文件内容
+        //方式就是--数据流读取文件内容
         QDataStream in(&file1);
         QString str = file1.readLine();
         str = str.trimmed();
