@@ -89,6 +89,7 @@ FuncWindow::FuncWindow(QWidget *parent)
     btn_close->setStyleSheet("border-image:url(:/img/close.png);");
     connect(btn_close, &QPushButton::clicked, this, &FuncWindow::shotsign);
     connect(this,SIGNAL(sendsignal()),this,SLOT(close_window()));
+    connect(ui->tableWidget, SIGNAL(cellChanged(int,int)), this, SLOT(changeTest(int, int)));
 }
 
 FuncWindow::~FuncWindow()
@@ -103,13 +104,20 @@ void FuncWindow::on_pushButton_clicked()
     deletewindow->init(taglist);
     int result = deletewindow->exec();
     if(result){
+        if(taglist.size()==0)return;
         int index=deletewindow->num;
-        ui->textEdit->clear();
-        for(const auto &i : taglist[index].T_filelist){
-            ui->textEdit->insertPlainText(QString::fromStdString(i.name+"\n"));
+
+        ui->tableWidget->setRowCount(0);
+        int row_num = 0;
+        for(auto &i : taglist[index].T_filelist){
+
+            ui->tableWidget->insertRow(row_num);
+            ui->tableWidget->setItem(row_num,0,new QTableWidgetItem(QString::fromStdString(taglist[index].name)));
+            ui->tableWidget->item(row_num,0)->setCheckState(Qt::Unchecked);
+            ui->tableWidget->setItem(row_num,1,new QTableWidgetItem(QString::fromStdString(i.address)));
+            ui->tableWidget->item(row_num,1)->setCheckState(Qt::Unchecked);
         }
     }
-
 }
 
 void FuncWindow::on_pushButton_2_clicked()
@@ -117,7 +125,8 @@ void FuncWindow::on_pushButton_2_clicked()
     QString fileName =  QFileDialog::getOpenFileName(this,tr("打开文件"),"./",tr("All file (*.*)"));
     if(!fileName.isEmpty()){
 
-        ui->textEdit->clear();
+
+        ui->tableWidget->setRowCount(0);
         string newfile_path=fileName.toStdString();
         std::filesystem::path newfile(newfile_path);
         string newfile_name=newfile.filename().string();
@@ -126,8 +135,15 @@ void FuncWindow::on_pushButton_2_clicked()
         file.address = newfile_path;
         std::vector<Tag> taglist;
         taglist = fileshowtag(file);
+        int row_num = 0;
         for(const auto &i : taglist){
-            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
+
+            ui->tableWidget->insertRow(row_num);
+            ui->tableWidget->setItem(row_num,0,new QTableWidgetItem(QString::fromStdString(i.name+" "+i.explain)));
+            ui->tableWidget->item(row_num,0)->setCheckState(Qt::Unchecked);
+            ui->tableWidget->setItem(row_num,1,new QTableWidgetItem(fileName));
+            ui->tableWidget->item(row_num,1)->setCheckState(Qt::Unchecked);
+            row_num++;
         }
     }
 }
@@ -156,7 +172,7 @@ void FuncWindow::on_pushButton_3_clicked()
                                               "",
                                               &bOk
                                               );
-        fileaddtag(fileinset(newfile_name,newfile_path),taginvec(sName.toStdString(),""));
+        if(bOk)fileaddtag(fileinset(newfile_name,newfile_path),taginvec(sName.toStdString(),""));
     }
 
 }
@@ -192,10 +208,16 @@ void FuncWindow::on_pushButton_4_clicked()
             QMessageBox::information(this, "警告","当前文件没有标签");
 
         }
-        ui->textEdit->clear();
+        ui->tableWidget->setRowCount(0);
         taglist = fileshowtag(file);
+        int row_num = 0;
         for(const auto &i : taglist){
-            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
+            ui->tableWidget->insertRow(row_num);
+            ui->tableWidget->setItem(row_num,0,new QTableWidgetItem(QString::fromStdString(i.name+" "+i.explain)));
+            ui->tableWidget->item(row_num,0)->setCheckState(Qt::Unchecked);
+            ui->tableWidget->setItem(row_num,1,new QTableWidgetItem(fileName));
+            ui->tableWidget->item(row_num,1)->setCheckState(Qt::Unchecked);
+            row_num++;
         }
 
     }
