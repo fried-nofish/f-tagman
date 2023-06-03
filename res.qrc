@@ -18,6 +18,12 @@
         <file>img/deltag.jpg</file>
         <file>img/findfile.jpg</file>
         <file>img/viewtag.jpg</file>
+        <file>img/viewtag.png</file>
+        <file>img/addtag.png</file>
+        <file>img/deltag.png</file>
+        <file>img/findfile.png</file>
+        <file>img/renametag.jpg</file>
+        <file>img/renametag.png</file>
     </qresource>
     <qresource prefix="/img"/>
 </RCC>
