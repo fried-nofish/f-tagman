@@ -22,6 +22,40 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 //    QPushButton *newb = new QPushButton(this);
+    read_file();
+
+
+}
+
+MainWindow::~MainWindow()
+{
+    QFile file(QApplication::applicationDirPath() + "/test.txt");
+    if(file.open(QIODevice::ReadWrite|QIODevice::Text|QIODevice::Truncate)){
+        QTextStream out(&file);
+        std::vector<File> a_file = showallfile();
+        out<<a_file.size()<<"\n";
+        for(auto &it : a_file){
+            out<<QString::fromStdString(it.address+"\n");
+            std::vector<Tag> taglist;
+            taglist = fileshowtag(it);
+            out<<taglist.size()<<"\n";
+            for(auto itr : taglist){
+                out<<QString::fromStdString(itr.name+"\n");
+                out<<QString::fromStdString(itr.explain+"\n");
+            }
+        }
+
+        file.close();
+
+    }
+    else{
+        qDebug()<<"failed";
+    }
+    delete ui;
+}
+
+void MainWindow::read_file()
+{
     QFile file1("test.txt");
     file1.setFileName("test.txt");
     if(file1.open(QIODevice::ReadOnly|QIODevice::Text)){
@@ -63,41 +97,6 @@ MainWindow::MainWindow(QWidget *parent)
     }else{
         qDebug()<<file1.errorString();
     }
-
-
-
-
-
-
-
-
-}
-
-MainWindow::~MainWindow()
-{
-    QFile file(QApplication::applicationDirPath() + "/test.txt");
-    if(file.open(QIODevice::ReadWrite|QIODevice::Text|QIODevice::Truncate)){
-        QTextStream out(&file);
-        std::vector<File> a_file = showallfile();
-        out<<a_file.size()<<"\n";
-        for(auto &it : a_file){
-            out<<QString::fromStdString(it.address+"\n");
-            std::vector<Tag> taglist;
-            taglist = fileshowtag(it);
-            out<<taglist.size()<<"\n";
-            for(auto itr : taglist){
-                out<<QString::fromStdString(itr.name+"\n");
-                out<<QString::fromStdString(itr.explain+"\n");
-            }
-        }
-
-        file.close();
-
-    }
-    else{
-        qDebug()<<"failed";
-    }
-    delete ui;
 }
 
 void MainWindow::reshow()
