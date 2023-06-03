@@ -21,6 +21,7 @@ class MainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void read_file();
 
 private slots:
     void on_pushButton_clicked();
