@@ -3,7 +3,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <QLabel>
+#include <QPushButton>
+#include <QMouseEvent>
+#include <QPoint>
+#include <QPointF>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,11 +21,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
     void read_file();
 
 
 private slots:
-    void on_pushButton_clicked();
+    void on_btn_close_clicked();
     void reshow();
 
 
@@ -33,6 +40,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    bool mouse_Flag_Clicked;  //鼠标点击左键
+    QPointF screenPos;// 屏幕上的点
 };
 
 #endif // MAINWINDOW_H
