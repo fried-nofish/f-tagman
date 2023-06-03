@@ -17,64 +17,23 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>220</y>
-      <width>160</width>
-      <height>331</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="text">
-        <string>标签改名</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>删除标签</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>找文件</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>展示标签</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>添加标签</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>260</y>
-      <width>600</width>
-      <height>500</height>
+      <x>10</x>
+      <y>190</y>
+      <width>771</width>
+      <height>375</height>
      </rect>
     </property>
     <property name="focusPolicy">
      <enum>Qt::StrongFocus</enum>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
     </property>
     <property name="editTriggers">
      <set>QAbstractItemView::NoEditTriggers</set>
@@ -92,22 +51,6 @@
       <string>文件地址</string>
      </property>
     </column>
-   </widget>
-   <widget class="QPushButton" name="pushButton_6">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>220</y>
-      <width>80</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>打开文件</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

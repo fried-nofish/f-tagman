@@ -17,13 +17,21 @@
         <file>img/addtag.jpg</file>
         <file>img/deltag.jpg</file>
         <file>img/findfile.jpg</file>
+        <file>img/renametag.jpg</file>
         <file>img/viewtag.jpg</file>
-        <file>img/viewtag.png</file>
         <file>img/addtag.png</file>
         <file>img/deltag.png</file>
         <file>img/findfile.png</file>
-        <file>img/renametag.jpg</file>
         <file>img/renametag.png</file>
+        <file>img/viewtag.png</file>
+        <file>img/about_us.png</file>
+        <file>img/advice.png</file>
+        <file>img/hamburger_button.png</file>
+        <file>img/off_screen.png</file>
+        <file>img/startbutton2.png</file>
+        <file>img/theme.png</file>
+        <file>img/turn_on.png</file>
+        <file>img/explain.png</file>
     </qresource>
     <qresource prefix="/img"/>
 </RCC>

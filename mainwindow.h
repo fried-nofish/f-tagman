@@ -13,6 +13,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QPointF>
+#include <QMenu>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,6 +31,7 @@ public:
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void read_file();
+    void init_title();
 
 private slots:
     void reshow();

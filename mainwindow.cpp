@@ -6,6 +6,7 @@
 #include <QString>
 #include <QMessageBox>
 #include <QDebug>
+#include <QProcess>
 #include "funcwindow.h"
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
@@ -18,7 +19,7 @@ void MainWindow::read_file()
     QFile file1("test.txt");
     file1.setFileName("test.txt");
     if(file1.open(QIODevice::ReadOnly|QIODevice::Text)){
-        //方式就是--数据流读取文件内容
+        //第二种方式就是一数据流读取文件内容
         QDataStream in(&file1);
         QString str = file1.readLine();
         str = str.trimmed();
@@ -54,50 +55,136 @@ void MainWindow::read_file()
     }
 }
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+void MainWindow::init_title()
 {
-    ui->setupUi(this);
-//    QPushButton *newb = new QPushButton(this);
-    read_file();
-    //设置应用程序图标
-    this->setWindowIcon(QIcon(":/img/logo.png"));
-    //隐藏标题栏
-    this->setWindowFlags(Qt::FramelessWindowHint);
-    QPixmap pix_bk;
-    pix_bk.load(":/img/start_interface.jpg");
-    //设置图片像素为1000*1000(把图片缩小了),设置图片保持宽高比
-    pix_bk = pix_bk.scaled(1000, 1000, Qt::KeepAspectRatio);
-    //设置窗口大小为图片大小
-    this->setFixedSize(pix_bk.size());
-    //border-image使图片自适应
-    this->setStyleSheet("QMainWindow {border-image:url(:/img/start_interface.jpg)}");
+    this->setWindowIcon(QIcon(":/img/logo.jpg"));
+        //隐藏标题栏
+        this->setWindowFlags(Qt::FramelessWindowHint);
 
-    //立即使用按钮
-    QPushButton * btn_start = new QPushButton;
-    btn_start->setParent(this);
-    //设置按钮位置
-    btn_start->move(500, 420);
-    QPixmap pix_btn_start;
-    pix_btn_start.load(":/img/startbutton.png");
-    //根据图片的最大矩形大小设置按钮大小，使图片与按钮相适应
-    btn_start->setFixedSize(pix_btn_start.size());
-    //使用border-image可使图片自适应
-    btn_start->setStyleSheet("border-image:url(:/img/startbutton.png);");
-    //设置按钮背景透明
-    //btn->setFlat(true);
+        QPixmap pix_bk;
+        pix_bk.load(":/img/start_interface.jpg");
+        //设置图片像素为1000*1000(把图片缩小了),设置图片保持宽高比
+        pix_bk = pix_bk.scaled(1000, 1000, Qt::KeepAspectRatio);
+        //设置窗口大小为图片大小
+        this->setFixedSize(pix_bk.size());
+        //border-image使图片自适应
+        this->setStyleSheet("QMainWindow {border-image:url(:/img/start_interface.jpg)}");
 
-    //关闭窗口按钮
-    QPushButton * btn_close = new QPushButton;
-    btn_close->setParent(this);
-    btn_close->move(950, 15);
-    QPixmap pix_btn_close;
-    pix_btn_close.load(":/img/close.png");
-    btn_close->setFixedSize(25, 25);
-    btn_close->setStyleSheet("border-image:url(:/img/close.png);");
-    connect(btn_close, &QPushButton::clicked, this, &MainWindow::close);
-    connect(btn_start, SIGNAL(clicked()),this,SLOT(btn_close_clicked()));
+        //立即使用按钮
+        QPushButton * btn_start = new QPushButton;
+        btn_start->setParent(this);
+        //设置按钮位置
+        btn_start->move(495, 435);
+        QPixmap pix_btn_start;
+        pix_btn_start.load(":/img/startbutton.png");
+        pix_btn_start = pix_btn_start.scaled(250, 250, Qt::KeepAspectRatio);
+        //根据图片的最大矩形大小设置按钮大小，使图片与按钮相适应
+        btn_start->setFixedSize(pix_btn_start.size());
+        //使用border-image可使图片自适应
+        btn_start->setStyleSheet("border-image:url(:/img/startbutton.png);");
+        connect(btn_start, SIGNAL(clicked()),this,SLOT(btn_close_clicked()));
+
+        //关闭窗口按钮
+        QPushButton * btn_close = new QPushButton;
+        btn_close->setParent(this);
+        btn_close->move(960, 15);
+        QPixmap pix_btn_close;
+        pix_btn_close.load(":/img/close.png");
+        btn_close->setFixedSize(23, 23);
+        btn_close->setStyleSheet("border-image:url(:/img/close.png);");
+        connect(btn_close, &QPushButton::clicked, this, &MainWindow::close);
+
+        //缩小窗口按钮
+        QPushButton * btn_off_screen = new QPushButton;
+        btn_off_screen->setParent(this);
+        btn_off_screen->move(920, 15);
+        QPixmap pix_btn_off_screen;
+        pix_btn_off_screen.load(":/img/off_screen.png");
+        btn_off_screen->setFixedSize(23, 23);
+        btn_off_screen->setStyleSheet("border-image:url(:/img/off_screen.png);");
+        connect(btn_off_screen, &QPushButton::clicked, this, &MainWindow::showMinimized);
+
+        //更多窗口按钮
+        QPushButton * btn_more = new QPushButton;
+        btn_more->setParent(this);
+        btn_more->move(880, 15);
+        QPixmap pix_btn_more;
+        pix_btn_more.load(":/img/hamburger_button.png");
+        btn_more->setFixedSize(23, 23);
+        btn_more->setStyleSheet("border-image:url(:/img/hamburger_button.png);");
+
+        //加按钮的菜单栏
+        QMenu *more_menu=new QMenu;
+        QAction *action1 = new QAction(QIcon(":/img/config.png"), "设置");
+        QAction *action2 = new QAction(QIcon(":/img/advice.png"), "意见反馈");
+        QAction *action3 = new QAction(QIcon(":/img/about_us.png"), "关于我们");
+        more_menu->addAction(action1);
+        more_menu->addSeparator();
+        more_menu->addAction(action2);
+        more_menu->addSeparator();
+        more_menu->addAction(action3);
+        btn_more->setMenu(more_menu);
+        //btn_more->setStyleSheet("QPushButton::menu-indicator{image:none}");
+        //QHBoxLayout *mainLayout=new QHBoxLayout(this);
+        //mainLayout->addWidget(mybtn);
+
+        //主题窗口按钮
+        QPushButton * btn_theme = new QPushButton;
+        btn_theme->setParent(this);
+        btn_theme->move(840, 15);
+        QPixmap pix_btn_theme;
+        pix_btn_theme.load(":/img/theme.png");
+        btn_theme->setFixedSize(23, 23);
+        btn_theme->setStyleSheet("border-image:url(:/img/theme.png);");
+
+        //设置主页面文字
+        QLabel *label1 = new QLabel;
+        label1->setParent(this);
+        label1->setText(QString("深度管理，轻松找到"));
+        label1->setGeometry(400, 230, 700, 100);
+        //设置字体颜色
+        label1->setStyleSheet("color:rgb(0, 122, 255)");
+        //设置字体样式,字体大小和加粗权重
+        QFont font("微软雅黑", 45, 10);
+        label1->setFont(font);
+
+        //主页面文字2
+        QLabel *label2 = new QLabel;
+        label2->setParent(this);
+        label2->setText(QString("如果你也觉得本系统好用的话，那我觉得这件事，泰裤辣！"));
+        label2->setGeometry(400, 310, 700, 100);
+        label2->setStyleSheet("color:rgb(117, 117, 209)");
+        QFont font2("微软雅黑", 15, 0);
+        label2->setFont(font2);
+
+        //窗口标题
+        QLabel *label3 = new QLabel;
+        label3->setParent(this);
+        label3->setText(QString("文件标签管理系统"));
+        label3->setGeometry(30, -5, 300, 50);
+        label3->setStyleSheet("color:rgb(255, 255, 255)");
+        QFont font3("微软雅黑", 12, 0);
+        label3->setFont(font3);
+
+        //左上角logo
+        QPixmap pix_logo;
+        pix_logo.load(":/img/logo.jpg");
+        QLabel *label4 = new QLabel;
+        label4->setParent(this);
+        label4->setGeometry(0, 5, 30, 30);
+        //label4->setPixmap(pix_logo);
+        label4->setStyleSheet("border-image:url(:/img/logo.jpg);");
+    }
+
+    MainWindow::MainWindow(QWidget *parent)
+        : QMainWindow(parent)
+        , ui(new Ui::MainWindow)
+    {
+        ui->setupUi(this);
+    //    QPushButton *newb = new QPushButton(this);
+        read_file();
+
+        init_title();
 }
 
 MainWindow::~MainWindow(){
@@ -111,7 +198,7 @@ MainWindow::~MainWindow(){
             std::vector<Tag> taglist;
             taglist = fileshowtag(it);
             out<<taglist.size()<<"\n";
-            for(auto itr : taglist){
+            for(auto &itr : taglist){
                 out<<QString::fromStdString(itr.name+"\n");
                 out<<QString::fromStdString(itr.explain+"\n");
             }
