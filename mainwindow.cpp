@@ -196,6 +196,11 @@ void MainWindow::on_pushButton_4_clicked()
             QMessageBox::information(this, "警告","当前文件没有标签");
 
         }
+        ui->textEdit->clear();
+        taglist = fileshowtag(file);
+        for(auto i : taglist){
+            ui->textEdit->insertPlainText(QString::fromStdString(i.name+" "+i.explain));
+        }
 
     }
 }

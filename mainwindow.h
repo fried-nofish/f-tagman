@@ -4,16 +4,12 @@
 
 #include <QMainWindow>
 
+
 QT_BEGIN_NAMESPACE
-
-namespace Ui {
-class MainWindow;
-} // namespace Ui
-
+namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
-class MainWindow
-    : public QMainWindow
+class MainWindow : public QMainWindow
 
 {
     Q_OBJECT
@@ -21,10 +17,13 @@ class MainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void read_file();
+
 
 private slots:
     void on_pushButton_clicked();
     void reshow();
+
 
     void on_pushButton_2_clicked();
 
