@@ -1,49 +1,30 @@
-#include "file.h"
 
-using std::cin;
-using std::cout;
-using std::endl;
+#include "mainwindow.h"
+
+#include <QApplication>
+#include <QSplashScreen>
+#include <QTimer>
 
 int main(int argc, char *argv[]) {
-    //! TODO: handle application startup here
+    QApplication app(argc, argv);
 
-    std::map<tag, std::vector<file>> FILE;
-    address filepath;
-    while (1) {
-        menu();
-        int select;
-        cin >> select;
-        switch (select) {
-            case 1:
-                cout << "输入要管理的目录名: "<<std::endl;
-                cin >> filepath;
-                function_01(filepath);
-                break;
-            case 2:
-                function_02(FILE);
-                break;
-            case 3:
-                function_03(FILE);
-                break;
-            case 4:
-                break;
-            case 5:
-                function_05(FILE);
-                break;
-            case 6:
-                function_06(FILE);
-                break;
-            case 7:
-                function_07(FILE);      
-                break;
-            case 8:
-                function_08(FILE);
-                break;
-            default:
-                cout << "你故意找茬是吧？"<<endl;
-                system("pause");
-        }
-    }
+    //! display startup interface
+    auto pixStartup =
+        QPixmap(":/img/FishBegin.jpg")
+            .scaled(500, 300, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QSplashScreen splash(pixStartup, Qt::WindowStaysOnTopHint);
+    splash.show();
+    splash.setEnabled(false);
 
-    return 0;
+    //! preprocess
+    MainWindow w;
+
+    QTimer t; //<! using a timer to simulate the preprocess procedure
+    t.singleShot(3000, [&]() {
+        splash.finish(&w);
+        w.show();
+    });
+    t.start();
+
+    return app.exec();
 }
