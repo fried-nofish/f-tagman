@@ -2,23 +2,27 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <QLabel>
-#include <QMovie>
-#include <windows.h>
 #include <QSplashScreen>
+#include <QTimer>
 
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    QPixmap      pixmap(":/img/FishBegin.jpg"); /* 设置启动图片 */
-    pixmap =
-        pixmap.scaled(500, 300, Qt::IgnoreAspectRatio, Qt::FastTransformation);
-    QSplashScreen splash(pixmap); /* 利用QPixmap对象创建一个QSplashScreen对象 */
+    QApplication app(argc, argv);
+
+    //! display startup interface
+    QSplashScreen splash(
+        QPixmap(":/img/FishBegin.jpg")
+            .scaled(500, 300, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
     splash.show();
-    splash.setCursor(Qt::BlankCursor);
-    a.processEvents();
-    Sleep(3000);
+
+    //! preprocess
     MainWindow w;
-    w.show();
-    splash.finish((&w));
-    return a.exec();
+
+    QTimer t; //<! using a timer to simulate the preprocess procedure
+    t.singleShot(3000, [&]() {
+        splash.finish(&w);
+        w.show();
+    });
+    t.start();
+
+    return app.exec();
 }
