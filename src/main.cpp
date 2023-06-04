@@ -9,10 +9,12 @@ int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     //! display startup interface
-    QSplashScreen splash(
+    auto pixStartup =
         QPixmap(":/img/FishBegin.jpg")
-            .scaled(500, 300, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+            .scaled(500, 300, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    QSplashScreen splash(pixStartup, Qt::WindowStaysOnTopHint);
     splash.show();
+    splash.setEnabled(false);
 
     //! preprocess
     MainWindow w;
