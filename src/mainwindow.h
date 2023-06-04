@@ -23,24 +23,24 @@ class MainWindow;
 
 QT_END_NAMESPACE
 
-class MainWindow
-    : public QMainWindow
-
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+
+    bool nativeEvent(
+        const QByteArray &eventType, void *message, qintptr *result) override;
+
+    //void mousePressEvent(QMouseEvent *event);
+    //void mouseMoveEvent(QMouseEvent *event);
+    //void mouseReleaseEvent(QMouseEvent *event);
     void read_file();
     void init_title();
 
 private slots:
-    void reshow();
-    void btn_close_clicked();
+    void enterfunc(); //<! 前往功能区
 
 private:
     Ui::MainWindow *ui;
