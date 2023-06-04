@@ -3,17 +3,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QLabel>
-#include <QPushButton>
-#include <QMouseEvent>
-#include <QPoint>
-#include <QPointF>
-#include <QLabel>
-#include <QPushButton>
-#include <QMouseEvent>
-#include <QPoint>
-#include <QPointF>
-#include <QMenu>
 
 QT_BEGIN_NAMESPACE
 
@@ -33,19 +22,17 @@ public:
     bool nativeEvent(
         const QByteArray &eventType, void *message, qintptr *result) override;
 
-    //void mousePressEvent(QMouseEvent *event);
-    //void mouseMoveEvent(QMouseEvent *event);
-    //void mouseReleaseEvent(QMouseEvent *event);
-    void read_file();
-    void init_title();
+protected:
+    QString dbPath() const; //<! 本地数据文件路径
+    void    loadData();     //<! 加载本地数据
+    void    storeData();    //<! 存储本地数据
+    void    initialize();
 
 private slots:
     void enterfunc(); //<! 前往功能区
 
 private:
     Ui::MainWindow *ui;
-    bool            mouse_Flag_Clicked; // 鼠标点击左键
-    QPointF         screenPos;          // 屏幕上的点
 };
 
 #endif // MAINWINDOW_H
