@@ -7,14 +7,12 @@
 
 namespace Ui {
 class DeleteTag;
-}
+} // namespace Ui
 
-class DeleteTag : public QWidget
-{
+class DeleteTag : public QWidget {
     Q_OBJECT
 
 public:
-
     int num;
     explicit DeleteTag(QWidget *parent = nullptr);
     ~DeleteTag();
@@ -22,7 +20,6 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
 
     void on_comboBox_activated(int index);
 

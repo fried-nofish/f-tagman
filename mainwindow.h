@@ -16,10 +16,15 @@
 #include <QMenu>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+
+namespace Ui {
+class MainWindow;
+} // namespace Ui
+
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class MainWindow
+    : public QMainWindow
 
 {
     Q_OBJECT
@@ -37,11 +42,10 @@ private slots:
     void reshow();
     void btn_close_clicked();
 
-
 private:
     Ui::MainWindow *ui;
-    bool mouse_Flag_Clicked;  //鼠标点击左键
-    QPointF screenPos;// 屏幕上的点
+    bool            mouse_Flag_Clicked; // 鼠标点击左键
+    QPointF         screenPos;          // 屏幕上的点
 };
 
 #endif // MAINWINDOW_H
