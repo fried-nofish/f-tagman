@@ -14,38 +14,33 @@ class FuncWindow : public QMainWindow {
 public:
     FuncWindow(QWidget *parent = nullptr);
     ~FuncWindow();
-    int          open_row = 0;
-    int          open_col = 0;
-    void         init_btn();
-    void         init_title();
-    QPushButton *btn_openfile;
 
-private slots:
-    void on_pushButton_2_clicked();
+protected:
+    void initialize();
+    void setupUi();
+    void initializeButtons();
 
-    void on_pushButton_3_clicked();
-
-    void on_pushButton_4_clicked();
-
-    void on_pushButton_clicked();
-
-    void shotsign();
-
-    void close_window();
-
-    void on_pushButton_5_clicked();
-
-    void changeTest(int row, int col);
-
-    void on_pushButton_6_clicked();
+private:
+    QPushButton *addButton(QPoint p, QSize size, const QString &imageUrl);
 
 signals:
-    void sendsignal();
+    void closed();
+
+private slots:
+    void addTag();      //<! 添加标签
+    void removeTag();   //<! 移除标签
+    void displayTags(); //<! 显示标签
+    void findFile();    //<! 查找文件
+    void renameTag();   //<! 标签重命名
+    void explain();     //<! 解释标签
+    void openFile();    //<! 打开文件
+    void updateCheckState(int row, int col);
 
 private:
     Ui::FuncWindow *ui;
-    bool            mouse_Flag_Clicked; // 鼠标点击左键
-    QPointF         screenPos;          // 屏幕上的点
+    QPushButton    *btn_openfile;
+    int             open_row = 0;
+    int             open_col = 0;
 };
 
 #endif // FUNCWINDOW_H

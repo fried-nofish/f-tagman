@@ -2,17 +2,13 @@
 #include "ui_mainwindow.h"
 #include "funcwindow.h"
 #include "api.h"
+#include "utils.h"
 
 #include <QImageReader>
 #include <QFile>
 #include <QPushButton>
 #include <QLabel>
 #include <windows.h>
-
-inline QSize getPreferredImageSize(const QString &fileName, int w) {
-    QImageReader ir(fileName);
-    return ir.size() * (w * 1. / ir.size().width());
-}
 
 QString MainWindow::dbPath() const {
     return QApplication::applicationDirPath().append("/test.txt");
@@ -192,6 +188,6 @@ bool MainWindow::nativeEvent(
 void MainWindow::enterfunc() {
     hide();
     FuncWindow *con = new FuncWindow;
-    connect(con, SIGNAL(sendsignal()), this, SLOT(show()));
+    connect(con, SIGNAL(closed()), this, SLOT(show()));
     con->show();
 }
